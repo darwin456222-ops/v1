@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Model Arena</title>
+    <style>body { margin: 0; overflow: hidden; } canvas { display: block; }</style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0';
+        import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
+
+        // Sahne kurulumu
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Işık ekleme
+        const light = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(light);
+
+        // Model Yükleme
+        const loader = new GLTFLoader();
+        loader.load('MODEL_DOSYANI_BURAYA_YAZ.glb', (gltf) => {
+            scene.add(gltf.scene);
+        });
+
+        camera.position.z = 5;
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
